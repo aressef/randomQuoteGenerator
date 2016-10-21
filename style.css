@@ -1,7 +1,22 @@
-body {
+html {
+  /* background image -- centered using CSS3*/
+  background: url(img/design.jpeg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .quote-box {
-  background-color: red;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  border-radius: 5px;
+  padding: 5px 15px 5px 15px;
 }
