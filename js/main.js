@@ -1,29 +1,28 @@
-// JavaScript
-
-
-$(document).ready(function(){
-
-     $(".quote").text("I'm not your guy, Pal!");
-
-    // $('.buttons').on('click', 'button', function() {
-    //   alert("helllllllo");
-    // });
-
-
-     $('.buttons').on('click', '.refresh', function() {
-       $.ajax('http://quotesondesign.com/api/3.0/api-3.0.json?callback=my_function', {
-         success: function() {
-           $(".quote").text("quote");
-           alert("it worked");
-         }
-       });
-     });
-
-});
+// var xhr = new XMLHttpRequest();
+// xhr.open('GET', 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1');
+// xhr.send(null);
+//
+//
+// xhr.onreadystatechange = function () {
+//   var DONE = 4;
+//   var OK = 200;
+//   if (xhr.readyState === DONE) {
+//     if  (xhr.status = OK) {
+//       console.log(xhr.responseText)
+//     } else {
+//       console.log('Error: ' + xhr.status);
+//     }
+//   }
+// };
 
 
 
+function processJSONResponse(data) {
+  var dataFromServer = data;
+  console.log("dataFromServer");
+}
 
-// $.getJSON("http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=", function(a) {
-//  $(.quote).append(a[0].content + "<p>— " + a[0].title + "</p>")
-// });
+
+var script = document.createElement('script');
+script.src = 'http://quotesondesign.com/api/3.0/api-3.0.json';
+document.body.appendChild(script);
