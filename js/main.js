@@ -1,28 +1,34 @@
-// var xhr = new XMLHttpRequest();
-// xhr.open('GET', 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1');
-// xhr.send(null);
-//
-//
-// xhr.onreadystatechange = function () {
-//   var DONE = 4;
-//   var OK = 200;
-//   if (xhr.readyState === DONE) {
-//     if  (xhr.status = OK) {
-//       console.log(xhr.responseText)
-//     } else {
-//       console.log('Error: ' + xhr.status);
-//     }
-//   }
-// };
-
-
-
-function processJSONResponse(data) {
-  var dataFromServer = data;
-  console.log("dataFromServer");
+function ajaxCall() {
+  $.ajax({
+      url: 'http://quotesondesign.com/api/3.0/api-3.0.json',
+      dataType: 'jsonp',
+      callback: 'callback',
+      type: 'GET',
+      success: function (data) {
+        var post = data.shift();
+        document.getElementById('quote').innerHTML="\"" + data.quote + "\"";
+        document.getElementById('author').innerHTML="-" + data.author;
+        document.getElementById('newQuote').addEventListener('click',function() {
+          ajaxCall();
+        });
+      }
+  });
 }
 
 
-var script = document.createElement('script');
-script.src = 'http://quotesondesign.com/api/3.0/api-3.0.json';
-document.body.appendChild(script);
+ajaxCall();
+
+
+// $('.newQuote').on('click', function(e) {
+//   e.preventDefault();
+//   $.ajax( {
+//     url: 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
+//     success: function(data) {
+//       var post = data.shift(); // The data is an array of posts. Grab the first one.
+//       $('#quote').text(post.title);
+//       $('#author').html(post.content);
+//       console.log('hello');
+//     },
+//     cache: false
+//   });
+// });
