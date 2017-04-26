@@ -1,24 +1,29 @@
 function getQuote() {
   $.ajax({
-      url: 'http://quotesondesign.com/api/3.0/api-3.0.json?p=rand',
-      dataType: 'jsonp',
-      callback: 'callback',
-      type: 'GET',
-      success: function (data) {
-        document.getElementById('quote').innerHTML="\"" + data.quote + "\"";
-        document.getElementById('author').innerHTML="-" + data.author;
-        console.log(data);
-      },
-      cache: false
+    url: 'http://quotesondesign.com/api/3.0/api-3.0.json?callback=getQuote',
+    dataType: 'jsonp',
+    type: 'GET',
+    cache: false,
+    success: function (data) {
+      document.getElementById('quote').innerHTML="\"" + data.quote + "\"";
+      document.getElementById('author').innerHTML="-" + data.author;
+      console.log(data);
+    }
   });
 }
 
-getQuote();
-
+$(document).ready(function() {
+  getQuote();
+});
 
 $('#newQuote').on('click', function(e) {
-  e.preventDefault();
   getQuote();
+});
+
+$('.tweet').on('click', function(e) {
+  e.preventDefault();
+  window.open('https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + $('.quote').text() + " -" + $('.author').text());
+  console.log($('.quote').text() + $('.author').text());
 });
 
 // $(document).ready(function() {
