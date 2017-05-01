@@ -1,6 +1,6 @@
 function getQuote() {
   $.ajax({
-    url: 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&_jsonp=?',
+    url: 'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&_jsonp=?',
     dataType: 'jsonp',
     type: 'GET',
     success: function (data) {
