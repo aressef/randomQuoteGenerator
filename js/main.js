@@ -4,9 +4,20 @@ function getQuote() {
     dataType: 'jsonp',
     type: 'GET',
     success: function (data) {
-      console.log(data);
-      $('.quote').text("\"" + data[0].content.replace('<p>','').replace('</p>','') + "\"");
-      $('.author').text("-" + data[0].title);
+      var content = data[0].content;
+      var author = data[0].title;
+      var quoteCleaner = document.createElement("TEXTAREA");
+      quoteCleaner.innerHTML = content;
+      var quoteClean = quoteCleaner.value;
+      var quote = quoteClean.replace('<p>','').replace('</p>','');
+      quote = quote.slice(0,-1);
+
+      if (quote.includes("<") == true) {
+        getQuote();
+      }
+
+      $('.quote').text("\"" + quote + "\"");
+      $('.author').text(" -" + author);
     },
     cache: false
   });
@@ -22,6 +33,13 @@ $('.newQuote').on('click', function(e) {
 
 $('.tweet').on('click', function(e) {
   e.preventDefault();
-  window.open('https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + $('.quote').text() + " -" + $('.author').text());
+  var quote = $('.quote').text();
+  var author = $('.author').text();
+  // if (quote.length + author.length > )
+
+  var tweetQuote = encodeURIComponent(quote);
+  var tweetAuthor = encodeURIComponent(author);
+
+  window.open('https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=' + $('.quote').text() + $('.author').text());
   console.log($('.quote').text() + $('.author').text());
 });
